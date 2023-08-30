@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import styled from 'styled-components'
 import { InstantSearch } from 'react-instantsearch-dom'
@@ -233,7 +234,6 @@ const App = () => {
           {isApiKeyBannerVisible && (
             <ApiKeyAwarenessBanner onClose={handleBannerClose} />
           )}
-          {showCloudBanner && <CloudBanner />}
           <Header
             indexes={indexes}
             currentIndex={currentIndex}
@@ -246,7 +246,7 @@ const App = () => {
           <Body>
             {/* <Sidebar /> */}
             <Box
-              width={928}
+              width={1280}
               m="0 auto"
               py={4}
               display="flex"

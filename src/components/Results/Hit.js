@@ -1,42 +1,32 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import ReactJson from 'react-json-view'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import { jsonTheme } from 'theme'
 import { DocumentMedium } from 'components/icons'
 import Button from 'components/Button'
-import Box from 'components/Box'
 import Card from 'components/Card'
 import BaseLink from 'components/Link'
 import Typography from 'components/Typography'
 import Highlight from './Highlight'
-
-const EmptyImage = styled.div`
-  width: 100%;
-  height: 264px;
-  background-color: ${(p) => p.theme.colors.main.light};
-  border-radius: 10px;
-`
 
 const CustomCard = styled(Card)`
   display: flex;
 `
 
 const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
   word-break: break-all;
 `
 
 const HitKey = styled(Typography)`
-  grid-column: 1 / 2;
+  display: inline-block;
+  padding-right: 20px;
 `
 
-const HitValue = styled.div`
-  grid-column: 2 / 4;
-  word-break: break-word;
+const HitValue = styled.span`
+  // word-break: break-word;
+  margin: 10px;
 `
 
 const ContentContainer = styled.div`
@@ -52,13 +42,6 @@ const Link = styled(BaseLink)`
     outline: none;
     color: ${(p) => p.theme.colors.gray[0]};
   }
-`
-
-const Hr = styled.hr`
-  border-color: ${(p) => p.theme.colors.gray[10]};
-  background-color: ${(p) => p.theme.colors.gray[10]};
-  border-style: solid;
-  border-top: 0;
 `
 
 const isObject = (value) => {
@@ -211,51 +194,17 @@ const Hit = ({ hit, imageKey }) => {
 
   return (
     <CustomCard>
-      <Box width={240} mr={4} flexShrink={0}>
-        {hit[imageKey] ? (
-          <LazyLoadImage
-            src={hit[imageKey] || null}
-            width="100%"
-            style={{ borderRadius: 10 }}
-          />
-        ) : (
-          <EmptyImage />
-        )}
-      </Box>
       <ContentContainer>
         {hasFields &&
-          Object.keys(hit._highlightResult)
-            .slice(0, displayMore ? Object.keys(hit).length : 6)
-            .map((key) => (
-              <div key={key}>
-                <Grid>
-                  <HitKey variant="typo10" color="gray.6">
-                    {key}
-                  </HitKey>
-                  <HitValue>
-                    <FieldValue hit={hit} objectKey={key} />
-                  </HitValue>
-                </Grid>
-                <Hr />
-              </div>
-            ))}
-        {documentProperties.length > 6 && !displayMore && (
-          <Grid>
-            <HitKey variant="typo10" color="gray.6">
-              ...
-            </HitKey>
-            <div>
-              <Button
-                variant="link"
-                size="small"
-                toggable
-                onClick={() => setDisplayMore(true)}
-              >
-                Show more
-              </Button>
+          Object.keys(hit._highlightResult).map((key) => (
+            <div key={key}>
+              <Grid>
+                <HitValue>
+                  <FieldValue hit={hit} objectKey={key} />
+                </HitValue>
+              </Grid>
             </div>
-          </Grid>
-        )}
+          ))}
       </ContentContainer>
     </CustomCard>
   )
