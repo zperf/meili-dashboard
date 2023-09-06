@@ -21,11 +21,11 @@ const Grid = styled.div`
 
 const HitKey = styled(Typography)`
   display: inline-block;
-  padding-right: 20px;
+  width: 64px;
+  user-select: none;
 `
 
 const HitValue = styled.span`
-  // word-break: break-word;
   margin: 10px;
 `
 
@@ -199,6 +199,9 @@ const Hit = ({ hit, imageKey }) => {
           Object.keys(hit._highlightResult).map((key) => (
             <div key={key}>
               <Grid>
+                <HitKey variant="typo10" color="gray.6">
+                  {key}
+                </HitKey>
                 <HitValue>
                   <FieldValue hit={hit} objectKey={key} />
                 </HitValue>
